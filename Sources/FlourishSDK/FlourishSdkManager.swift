@@ -19,7 +19,7 @@ public class FlourishSdkManager: ObservableObject {
     public let endpoint: Endpoint
     public let tokenManager: TokenManager
 
-    required public init(
+    public init(
             customerCode: String,
             partnerUuid: String,
             partnerSecret: String,
