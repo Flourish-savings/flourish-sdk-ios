@@ -11,11 +11,11 @@ import SwiftUI
 
 @available(macOS 16.0, *)
 public class FlourishSdkManager: ObservableObject {
-    private let customerCode: String
-    private let partnerUuid: String
-    private let partnerSecret: String
-    private let environment: Environment
-    private let language: Language
+    public let customerCode: String
+    public let partnerUuid: String
+    public let partnerSecret: String
+    public let environment: Environment
+    public let language: Language
     public let endpoint: Endpoint
     public let tokenManager: TokenManager
 
