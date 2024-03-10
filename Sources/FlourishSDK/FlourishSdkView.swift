@@ -10,13 +10,13 @@ import WebKit
 
 @available(macOS 16.0, *)
 public struct FlourishSdkView: UIViewRepresentable {
-    let flourishSdkManager: FlourishSdkManager
+    public let flourishSdkManager: FlourishSdkManager
     
-    func makeUIView(context: Context) -> WKWebView {
+    public func makeUIView(context: Context) -> WKWebView {
         return WKWebView()
     }
 
-    func updateUIView(_ uiView: WKWebView, context: Context) {
+    public func updateUIView(_ uiView: WKWebView, context: Context) {
         if let url = URL(string: "\(flourishSdkManager.endpoint.frontend)&token=\(flourishSdkManager.tokenManager.accessToken ?? "")") {
             let request = URLRequest(url: url)
             uiView.load(request)
