@@ -21,7 +21,7 @@ public struct FlourishSdkView: UIViewRepresentable {
         
         // Add the script message handler to the user content controller
         let contentController = webView.configuration.userContentController
-        contentController.add(context.coordinator, name: "AppChannel") // Use a unique name for your handler
+        contentController.add(context.coordinator, name: "IosWebView") // Use a unique name for your handler
         
         // Assign the coordinator to handle events
         webView.navigationDelegate = context.coordinator
