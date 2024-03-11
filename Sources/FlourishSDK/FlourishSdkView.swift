@@ -12,6 +12,10 @@ import WebKit
 public struct FlourishSdkView: UIViewRepresentable {
     public let flourishSdkManager: FlourishSdkManager
     
+    public init(flourishSdkManager: FlourishSdkManager) {
+        self.flourishSdkManager = flourishSdkManager
+    }
+    
     public func makeUIView(context: Context) -> WKWebView {
         return WKWebView()
     }
