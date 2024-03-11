@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(macOS 16.0, *)
+@available(macOS 14.0, *)
 public class TokenManager {
     @AppStorage("FLOURISH_ACCESS_TOKEN") var accessToken: String?
 

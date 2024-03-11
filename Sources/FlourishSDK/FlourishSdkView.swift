@@ -8,7 +8,7 @@
 import SwiftUI
 import WebKit
 
-@available(macOS 16.0, *)
+@available(macOS 14.0, *)
 public struct FlourishSdkView: UIViewRepresentable {
     public let flourishSdkManager: FlourishSdkManager
     
