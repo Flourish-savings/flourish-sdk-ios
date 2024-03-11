@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import SwiftUI
 
-@available(macOS 14.0, *)
+@available(macOS 13.0, *)
 public class FlourishSdkManager: ObservableObject {
     public let customerCode: String
     public let partnerUuid: String
