@@ -17,8 +17,9 @@ public struct FlourishSdkView: UIViewRepresentable {
     public let flourishSdkManager: FlourishSdkManager
     public weak var delegate: FlourishSdkViewDelegate?
     
-    public init(flourishSdkManager: FlourishSdkManager) {
+    public init(flourishSdkManager: FlourishSdkManager, delegate: FlourishSdkViewDelegate? = nil) {
         self.flourishSdkManager = flourishSdkManager
+        self.delegate = delegate
     }
     
     public func makeUIView(context: Context) -> WKWebView {
