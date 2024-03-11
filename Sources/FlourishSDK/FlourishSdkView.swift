@@ -8,9 +8,14 @@
 import SwiftUI
 import WebKit
 
+public protocol FlourishSdkViewDelegate: AnyObject {
+    func onPostMessageReceived(_ flourishSdkView: FlourishSdkView, didReceiveMessage message: String)
+}
+
 @available(macOS 14.0, *)
 public struct FlourishSdkView: UIViewRepresentable {
     public let flourishSdkManager: FlourishSdkManager
+    public weak var delegate: FlourishSdkViewDelegate?
     
     public init(flourishSdkManager: FlourishSdkManager) {
         self.flourishSdkManager = flourishSdkManager
@@ -41,9 +46,9 @@ public struct FlourishSdkView: UIViewRepresentable {
     }
     
     public class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
-            var parent: FlourishSdkView
+            public var parent: FlourishSdkView
 
-            init(_ parent: FlourishSdkView) {
+            public init(_ parent: FlourishSdkView) {
                 self.parent = parent
             }
 
@@ -51,7 +56,7 @@ public struct FlourishSdkView: UIViewRepresentable {
             public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
                 if let messageBody = message.body as? String {
                     print("Received message from web: \(messageBody)")
-                    // Handle the message as needed
+                    parent.delegate?.onPostMessageReceived(parent, didReceiveMessage: messageBody)
                 }
             }
             
