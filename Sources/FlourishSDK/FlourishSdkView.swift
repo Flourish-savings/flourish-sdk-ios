@@ -5,7 +5,7 @@ public protocol FlourishSdkViewDelegate: AnyObject {
     func onMessageReceived(_ flourishSdkView: FlourishSdkView, didReceiveMessage message: String)
 }
 
-@available(macOS 12.0, *)
+@available(macOS 13.0, *)
 public struct FlourishSdkView: UIViewRepresentable {
     public let flourishSdkManager: FlourishSdkManager
     public weak var delegate: FlourishSdkViewDelegate?
