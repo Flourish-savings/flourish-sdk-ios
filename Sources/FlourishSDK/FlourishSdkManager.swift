@@ -10,6 +10,7 @@ public class FlourishSdkManager: ObservableObject {
     public let environment: Environment
     public let language: Language
     public let endpoint: Endpoint
+    public let eventGenerator: EventGenerator
 
     public init(
             customerCode: String,
@@ -24,6 +25,7 @@ public class FlourishSdkManager: ObservableObject {
             self.environment = environment
             self.language = language
             self.endpoint = Endpoint(environment: self.environment, language: self.language)
+            self.eventGenerator = EventGenerator()
         }
 
     public func initialize(completion: @escaping (Result<String, Error>) -> Void) {
