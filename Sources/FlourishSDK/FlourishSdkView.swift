@@ -9,7 +9,7 @@ import SwiftUI
 import WebKit
 
 public protocol FlourishSdkViewDelegate: AnyObject {
-    func flourishSdkView(_ flourishSdkView: FlourishSdkView, didReceiveMessage message: String)
+    func onMessageReceived(_ flourishSdkView: FlourishSdkView, didReceiveMessage message: String)
 }
 
 @available(macOS 14.0, *)
@@ -57,7 +57,7 @@ public struct FlourishSdkView: UIViewRepresentable {
             public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
                 if let messageBody = message.body as? String {
                     print("Received message from web: \(messageBody)")
-                    parent.delegate?.flourishSdkView(parent, didReceiveMessage: messageBody)
+                    parent.delegate?.onMessageReceived(parent, didReceiveMessage: messageBody)
                 }
             }
             
