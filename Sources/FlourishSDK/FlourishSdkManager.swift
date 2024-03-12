@@ -1,15 +1,8 @@
-//
-//  FlourishSdkManager.swift
-//  SdkExample
-//
-//  Created by Yuri Logatto Pamplona on 10/03/24.
-//
-
 import Foundation
 import Alamofire
 import SwiftUI
 
-@available(macOS 14.0, *)
+@available(macOS 12.0, *)
 public class FlourishSdkManager: ObservableObject {
     public let customerCode: String
     public let partnerUuid: String
@@ -17,7 +10,6 @@ public class FlourishSdkManager: ObservableObject {
     public let environment: Environment
     public let language: Language
     public let endpoint: Endpoint
-    public let tokenManager: TokenManager
 
     public init(
             customerCode: String,
@@ -32,7 +24,6 @@ public class FlourishSdkManager: ObservableObject {
             self.environment = environment
             self.language = language
             self.endpoint = Endpoint(environment: self.environment, language: self.language)
-            self.tokenManager = TokenManager()
         }
 
     public func initialize(completion: @escaping (Result<String, Error>) -> Void) {
@@ -47,7 +38,7 @@ public class FlourishSdkManager: ObservableObject {
                     if let jsonDictionary = json as? [String: Any] {
                         // Access the value of "access_token" key
                         if let accessToken = jsonDictionary["access_token"] as? String {
-                            self.tokenManager.saveToken(accessToken)
+                            TokenManager.shared.authToken = accessToken
                             completion(.success((accessToken)))
                         } else {
                             let error = NSError(domain: "FlourishSdkManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Access token not found in response"])

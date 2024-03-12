@@ -1,10 +1,3 @@
-//
-//  Endpoint.swift
-//  SdkExample
-//
-//  Created by Yuri Logatto Pamplona on 10/03/24.
-//
-
 import Foundation
 
 
