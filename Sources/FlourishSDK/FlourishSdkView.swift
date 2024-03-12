@@ -1,10 +1,3 @@
-//
-//  FlourishSdkView.swift
-//  SdkExample
-//
-//  Created by Yuri Logatto Pamplona on 10/03/24.
-//
-
 import SwiftUI
 import WebKit
 
@@ -12,7 +5,7 @@ public protocol FlourishSdkViewDelegate: AnyObject {
     func onMessageReceived(_ flourishSdkView: FlourishSdkView, didReceiveMessage message: String)
 }
 
-@available(macOS 14.0, *)
+@available(macOS 12.0, *)
 public struct FlourishSdkView: UIViewRepresentable {
     public let flourishSdkManager: FlourishSdkManager
     public weak var delegate: FlourishSdkViewDelegate?
@@ -36,7 +29,7 @@ public struct FlourishSdkView: UIViewRepresentable {
     }
 
     public func updateUIView(_ uiView: WKWebView, context: Context) {
-        if let url = URL(string: "\(flourishSdkManager.endpoint.frontend)&token=\(flourishSdkManager.tokenManager.accessToken ?? "")") {
+        if let url = URL(string: "\(flourishSdkManager.endpoint.frontend)&token=\(TokenManager.shared.authToken ?? "")") {
             let request = URLRequest(url: url)
             uiView.load(request)
         }
