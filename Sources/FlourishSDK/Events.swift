@@ -12,7 +12,7 @@ public class EventGenerator {
         
     }
 
-    func subscribe(listener: EventListener) -> AnyCancellable {
+    public func subscribe(listener: EventListener) -> AnyCancellable {
         return eventPublisher.sink { data in
             listener.didReceiveEvent(data: data)
         }
