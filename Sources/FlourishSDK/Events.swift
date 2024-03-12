@@ -7,6 +7,10 @@ public protocol EventListener: AnyObject {
 @available(macOS 13.0, *)
 public class EventGenerator {
     public let eventPublisher = PassthroughSubject<Any, Never>()
+    
+    public init() {
+        
+    }
 
     func subscribe(listener: EventListener) -> AnyCancellable {
         return eventPublisher.sink { data in
