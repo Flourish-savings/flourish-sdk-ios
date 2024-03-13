@@ -44,7 +44,7 @@ public struct FlourishSdkView: UIViewRepresentable {
             public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
                 if let messageBody = message.body as? String {
                     print("Received message from web: \(messageBody)")
-                    parent.flourishSdkManager.eventGenerator?.generateEvent(data: messageBody)
+                    parent.flourishSdkManager.eventGenerator?.generateEvent(eventString: messageBody)
                 }
             }
             

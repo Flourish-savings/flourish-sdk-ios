@@ -1,18 +1,18 @@
 import Foundation
 
-struct TriviaFinishEvent {
+public struct TriviaFinishEvent: Codable {
     public let name: String
     public let data: TriviaFinishEventData
 }
 
-struct TriviaFinishEventData {
+public struct TriviaFinishEventData: Codable {
     public let hits: Int
     public let questions: Int
     public let prizes: [Prize]
 }
 
 
-struct Prize {
+public struct Prize: Codable {
     public let quantity: Int
     public let category: String
 }
