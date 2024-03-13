@@ -1,18 +1,12 @@
 import SwiftUI
 import WebKit
 
-public protocol FlourishSdkViewDelegate: AnyObject {
-    func onMessageReceived(_ flourishSdkView: FlourishSdkView, didReceiveMessage message: String)
-}
-
 @available(macOS 13.0, *)
 public struct FlourishSdkView: UIViewRepresentable {
     public let flourishSdkManager: FlourishSdkManager
-    public weak var delegate: FlourishSdkViewDelegate?
     
-    public init(flourishSdkManager: FlourishSdkManager, delegate: FlourishSdkViewDelegate? = nil) {
+    public init(flourishSdkManager: FlourishSdkManager) {
         self.flourishSdkManager = flourishSdkManager
-        self.delegate = delegate
     }
     
     public func makeUIView(context: Context) -> WKWebView {
@@ -50,7 +44,7 @@ public struct FlourishSdkView: UIViewRepresentable {
             public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
                 if let messageBody = message.body as? String {
                     print("Received message from web: \(messageBody)")
-                    parent.delegate?.onMessageReceived(parent, didReceiveMessage: messageBody)
+                    parent.flourishSdkManager.eventGenerator?.generateEvent(eventString: messageBody)
                 }
             }
             
