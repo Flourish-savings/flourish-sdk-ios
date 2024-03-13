@@ -15,10 +15,8 @@ public class FlourishEventManager {
     }
 
     public func generateEvent(eventString: String) {
-        guard let jsonData = eventString.data(using: .utf8) else {
-            print("Failed to convert JSON string to Data")
-            fatalError()
-        }
+        let jsonData = eventString.data(using: .utf8)!
+        
         do {
             if let jsonDictionary = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
                 print(jsonDictionary)
