@@ -10,7 +10,7 @@ public class FlourishSdkManager: ObservableObject {
     public let environment: Environment
     public let language: Language
     public let endpoint: Endpoint
-    public var eventGenerator: EventGenerator?
+    public var flourishEventManager: FlourishEventManager?
 
     public init(
             customerCode: String,
@@ -27,9 +27,9 @@ public class FlourishSdkManager: ObservableObject {
             self.endpoint = Endpoint(environment: self.environment, language: self.language)
         }
 
-    public func initialize(completion: @escaping (Result<String, Error>) -> Void, eventListener: EventListener) {
+    public func initialize(completion: @escaping (Result<String, Error>) -> Void, eventDelegate: FlourishEvent) {
         let accessTokenRequest = AccessTokenRequest(partner_uuid: partnerUuid, partner_secret: partnerSecret, customer_code: customerCode)
-        self.eventGenerator = EventGenerator(eventListener: eventListener)
+        self.flourishEventManager = FlourishEventManager(eventDelegate: eventDelegate)
         AF.request("\(endpoint.backend)/access_token", method: .post, parameters: accessTokenRequest).response { response in
             switch response.result {
             case .success(let data):
