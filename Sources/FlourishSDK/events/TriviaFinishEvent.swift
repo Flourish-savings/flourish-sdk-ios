@@ -1,7 +1,7 @@
 import Foundation
 
 public struct TriviaFinishEvent: Codable {
-    public let name: String
+    public let eventName: String
     public let data: TriviaFinishEventData
 }
 

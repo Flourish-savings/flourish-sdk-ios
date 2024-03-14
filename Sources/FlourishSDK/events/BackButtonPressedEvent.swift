@@ -1,7 +1,7 @@
 import Foundation
 
 public struct BackButtonPressedEvent: Codable {
-    public let name: String
+    public let eventName: String
     public let data: BackButtonPressedEventData
 }
 
