@@ -40,6 +40,7 @@ public class FlourishSdkManager: ObservableObject {
                         // Access the value of "access_token" key
                         if let accessToken = jsonDictionary["access_token"] as? String {
                             TokenManager.shared.authToken = accessToken
+                            self.signIn(token: accessToken)
                             completion(.success((accessToken)))
                         } else {
                             let error = NSError(domain: "FlourishSdkManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Access token not found in response"])
@@ -57,6 +58,26 @@ public class FlourishSdkManager: ObservableObject {
             case .failure(let error):
                 print("Request failed with error: \(error)")
                 completion(.failure(error))
+            }
+        }
+    }
+    
+    public func signIn(token: String) -> Void {
+        var headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        
+        if let versionCode = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String {
+            headers["Sdk-Version"] = versionCode
+        }
+
+        AF.request("\(endpoint.backend)/sign_in", method: .post, headers: headers).response { response in
+            switch response.result {
+            case .success(let data):
+                print("SignIn request success: \(String(describing: data))")
+            case .failure(let error):
+                print("SignIn request failed with error: \(error)")
             }
         }
     }

@@ -6,5 +6,5 @@ public struct ReferralCopyEvent: Codable {
 }
 
 public struct ReferralCopyEventData: Codable {
-    public let data: String
+    public let referralCode: String
 }
