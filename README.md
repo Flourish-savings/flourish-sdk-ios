@@ -111,7 +111,7 @@ class FlourishEventDelegate: FlourishEvent {
 }
 ```
 
-Depois de criar esta classe, você precisa passá-la também para a inicialização
+After creating this class, you need to pass it to initialization as well
 
 ```swift
 let flourishEventDelegate = FlourishEventDelegate()
