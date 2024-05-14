@@ -1,5 +1,6 @@
 import Combine
 import Foundation
+import SwiftUI
 
 public protocol FlourishEvent: AnyObject {
     func onGiftCardCopyEvent(giftCardCopyEvent: GiftCardCopyEvent)
@@ -42,6 +43,9 @@ public class FlourishEventManager {
                         self.eventDelegate.onMissionActionEvent(missionActionEvent: eventData)
                     case "REFERRAL_COPY":
                         let eventData = try JSONDecoder().decode(ReferralCopyEvent.self, from: jsonData)
+                        let message = eventData.data.referralCode
+                        let activityViewController = UIActivityViewController(activityItems: [message], applicationActivities: nil)
+                        UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
                         self.eventDelegate.onReferralCopyEvent(referralCopyEvent: eventData)
                     case "TRIVIA_CLOSED":
                         let eventData = try JSONDecoder().decode(TriviaCloseEvent.self, from: jsonData)
