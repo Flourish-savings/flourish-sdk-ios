@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'FlourishSDK'
-  s.version      = '0.0.2'
+  s.version      = '0.0.3'
   s.summary      = 'Flourish SDK'
   s.description  = <<-DESC
     A library to integrate with Flourish.
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { 'Pedro Modrach' => 'pedro.modrach@flourishfi.com' }
   s.source       = { :git => 'https://github.com/Flourish-savings/flourish-sdk-ios.git', :tag => s.version.to_s }
-  s.platform     = :ios, '13.0'
+  s.platform     = :ios, '12.0'
   s.source_files = 'Sources/FlourishSDK/**/*.{swift}'
   s.dependency 'Alamofire', '~> 5.9'
   s.frameworks   = 'UIKit'
