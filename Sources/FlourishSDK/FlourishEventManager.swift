@@ -13,7 +13,7 @@ public protocol FlourishEvent: AnyObject {
     func onTriviaGameFinishedEvent(triviaFinishEvent: TriviaFinishEvent)
 }
 
-@available(macOS 13.0, *)
+@available(macOS 12.0, *)
 public class FlourishEventManager {
     public let eventDelegate: FlourishEvent
     

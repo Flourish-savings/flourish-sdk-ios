@@ -92,21 +92,19 @@ var body: some View {
 ## EVENTS
 ___
 
-You can also register for some events to know when something happens within our platform.
+You can also register to listen to our events and find out when something happens on our platform.
 
-You can listen to a specific already mapped event.
+### Listen our generic events
 
-### Listen our mapped events
+We have some events you can listen
 
-We have some events already mapped that you can listen to separately
-
-For example, if you need know when ou Trivia feature finished, you can listen to the "TriviaGameFinishedEvent"
+For example, if you need know when ou Trivia feature finished, you can listen to the "onGenericEvent"
 
 The first thing you need to do is create a class that extends our protocol called `FlourishEvent` and then override the event method you need to listen to.
 ```swift
 class FlourishEventDelegate: FlourishEvent {
-    func onTriviaGameFinishedEvent(triviaFinishEvent: FlourishSDK.TriviaFinishEvent) {
-        print("Received TriviaGameFinishedEvent on ExampleApp: \(triviaFinishEvent)")
+    func onGenericEvent(event: Data) {
+        print("Received Generic on ExampleApp: \(event)")
     }
 }
 ```
@@ -117,11 +115,6 @@ After creating this class, you need to pass it to initialization as well
 let flourishEventDelegate = FlourishEventDelegate()
 flourishSdkManager.initialize(completion: { _ in  })
 ```
-
-
-you can find our all mapped events here:
-https://github.com/Flourish-savings/flourish-sdk-ios/tree/main/Sources/FlourishSDK/events
-
 
 ### Events to listen
 here you have all events we will return

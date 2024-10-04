@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'FlourishSDK'
-  s.version      = '0.0.1'
+  s.version      = '0.0.2'
   s.summary      = 'Flourish SDK'
   s.description  = <<-DESC
     A library to integrate with Flourish.
