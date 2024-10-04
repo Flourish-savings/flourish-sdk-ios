@@ -27,7 +27,7 @@ ___
 In your project configuration, add the Flourish SDK pod dependencie.
 ```
 target 'MyApp' do
-  pod 'FlourishSDK', '~> 0.0'
+  pod 'FlourishSDK', 'LATEST_VERSION_HERE'
 end
 ```
 
