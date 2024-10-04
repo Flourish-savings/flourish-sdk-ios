@@ -24,9 +24,11 @@ ___
 
 ### Adding Flourish to your project
 
-In your project configuration, add the repository url of Flourish iOS library to your package dependencies.
+In your project configuration, add the Flourish SDK pod dependencie.
 ```
-https://github.com/Flourish-savings/flourish-sdk-ios
+target 'MyApp' do
+  pod 'FlourishSDK', '~> 0.0'
+end
 ```
 
 ### SDK internal requirements
