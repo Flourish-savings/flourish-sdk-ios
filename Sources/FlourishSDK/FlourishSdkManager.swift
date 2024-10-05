@@ -2,6 +2,7 @@ import Foundation
 import Alamofire
 import SwiftUI
 
+@available(iOS 12.0, *)
 @available(macOS 12.0, *)
 public class FlourishSdkManager {
     public let customerCode: String
@@ -33,11 +34,8 @@ public class FlourishSdkManager {
         AF.request("\(endpoint.backend)/access_token", method: .post, parameters: accessTokenRequest).response { response in
             switch response.result {
             case .success(let data):
-                // Use optional chaining to safely access response.data
                 if let jsonData = data, let json = try? JSONSerialization.jsonObject(with: jsonData, options: []) {
-                    // Check if the parsed JSON is a dictionary
                     if let jsonDictionary = json as? [String: Any] {
-                        // Access the value of "access_token" key
                         if let accessToken = jsonDictionary["access_token"] as? String {
                             TokenManager.shared.authToken = accessToken
                             self.signIn(token: accessToken)
@@ -51,7 +49,6 @@ public class FlourishSdkManager {
                         completion(.failure(error))
                     }
                 } else {
-                    // Handle the case where data or jsonData is nil
                     let error = NSError(domain: "FlourishSdkManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Response data is nil or invalid"])
                     completion(.failure(error))
                 }

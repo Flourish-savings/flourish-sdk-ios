@@ -3,16 +3,10 @@ import Foundation
 import SwiftUI
 
 public protocol FlourishEvent: AnyObject {
-    func onGenericEvent(event: Data)
-    func onGiftCardCopyEvent(giftCardCopyEvent: GiftCardCopyEvent)
-    func onBackButtonPressedEvent(backButtonPressedEvent: BackButtonPressedEvent)
-    func onHomeBannerActionEvent(homeBannerActionEvent: HomeBannerActionEvent)
-    func onMissionActionEvent(missionActionEvent: MissionActionEvent)
-    func onReferralCopyEvent(referralCopyEvent: ReferralCopyEvent)
-    func onTriviaCloseEvent(triviaCloseEvent: TriviaCloseEvent)
-    func onTriviaGameFinishedEvent(triviaFinishEvent: TriviaFinishEvent)
+    func onGenericEvent(event: String)
 }
 
+@available(iOS 12.0, *)
 @available(macOS 12.0, *)
 public class FlourishEventManager {
     public let eventDelegate: FlourishEvent
@@ -36,7 +30,7 @@ public class FlourishEventManager {
                         let activityViewController = UIActivityViewController(activityItems: [message], applicationActivities: nil)
                         UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
                     default:
-                        self.eventDelegate.onGenericEvent(event: jsonData)
+                        self.eventDelegate.onGenericEvent(event: eventString)
                     }
                 }
             } else {
