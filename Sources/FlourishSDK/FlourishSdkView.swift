@@ -1,7 +1,7 @@
 import SwiftUI
 import WebKit
 
-@available(iOS 13.0, *)
+@available(iOS 12.0, *)
 @available(macOS 12.0, *)
 public struct FlourishSdkView: UIViewRepresentable {
     public let flourishSdkManager: FlourishSdkManager
@@ -13,11 +13,9 @@ public struct FlourishSdkView: UIViewRepresentable {
     public func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
         
-        // Add the script message handler to the user content controller
         let contentController = webView.configuration.userContentController
-        contentController.add(context.coordinator, name: "IosWebView") // Use a unique name for your handler
+        contentController.add(context.coordinator, name: "IosWebView")
         
-        // Assign the coordinator to handle events
         webView.navigationDelegate = context.coordinator
 
         return webView
@@ -41,7 +39,6 @@ public struct FlourishSdkView: UIViewRepresentable {
                 self.parent = parent
             }
 
-            // Implement the WKScriptMessageHandler method to receive messages
             public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
                 if let messageBody = message.body as? String {
                     print("Received message from web: \(messageBody)")
@@ -49,8 +46,6 @@ public struct FlourishSdkView: UIViewRepresentable {
                 }
             }
             
-            // Implement other WKNavigationDelegate methods as needed
-            // For example, to handle page loading events
             public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
                 print("Web view finished loading.")
             }
