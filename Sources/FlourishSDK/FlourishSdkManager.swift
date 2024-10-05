@@ -1,6 +1,5 @@
 import Foundation
 import Alamofire
-import SwiftUI
 
 @available(iOS 12.0, *)
 @available(macOS 12.0, *)
@@ -29,37 +28,39 @@ public class FlourishSdkManager {
         }
 
     public func initialize(completion: @escaping (Result<String, Error>) -> Void, eventDelegate: FlourishEvent) {
-        let accessTokenRequest = AccessTokenRequest(partner_uuid: partnerUuid, partner_secret: partnerSecret, customer_code: customerCode)
         self.flourishEventManager = FlourishEventManager(eventDelegate: eventDelegate)
+        requestAccessToken { result in
+            switch result {
+            case .success(let accessToken):
+                self.signIn(token: accessToken)
+                completion(.success(accessToken))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    public func requestAccessToken(completion: @escaping (Result<String, Error>) -> Void) {
+        let accessTokenRequest = AccessTokenRequest(partner_uuid: partnerUuid, partner_secret: partnerSecret, customer_code: customerCode)
+        
         AF.request("\(endpoint.backend)/access_token", method: .post, parameters: accessTokenRequest).response { response in
             switch response.result {
             case .success(let data):
-                if let jsonData = data, let json = try? JSONSerialization.jsonObject(with: jsonData, options: []) {
-                    if let jsonDictionary = json as? [String: Any] {
-                        if let accessToken = jsonDictionary["access_token"] as? String {
-                            TokenManager.shared.authToken = accessToken
-                            self.signIn(token: accessToken)
-                            completion(.success((accessToken)))
-                        } else {
-                            let error = NSError(domain: "FlourishSdkManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Access token not found in response"])
-                            completion(.failure(error))
-                        }
-                    } else {
-                        let error = NSError(domain: "FlourishSdkManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON format"])
-                        completion(.failure(error))
-                    }
+                if let jsonData = data, let json = try? JSONSerialization.jsonObject(with: jsonData, options: []),
+                   let jsonDictionary = json as? [String: Any], let accessToken = jsonDictionary["access_token"] as? String {
+                    TokenManager.shared.authToken = accessToken
+                    completion(.success(accessToken))
                 } else {
-                    let error = NSError(domain: "FlourishSdkManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Response data is nil or invalid"])
+                    let error = NSError(domain: "FlourishSdkManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Access token not found or invalid response"])
                     completion(.failure(error))
                 }
             case .failure(let error):
-                print("Request failed with error: \(error)")
                 completion(.failure(error))
             }
         }
     }
     
-    public func signIn(token: String) -> Void {
+    public func signIn(token: String) {
         var headers: HTTPHeaders = [
             "Authorization": "Bearer \(token)",
             "Accept": "application/json"
